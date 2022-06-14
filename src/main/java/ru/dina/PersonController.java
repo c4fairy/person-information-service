@@ -1,9 +1,11 @@
 package ru.dina;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@Slf4j
 @RestController
 public class PersonController {
     private final PersonRepository repository;
@@ -17,12 +19,14 @@ public class PersonController {
     // tag::get-aggregate-root[]
     @GetMapping("/persons")
     List<Person> all() {
+        log.info("Вызов метода findAll()");
         return repository.findAll();
     }
     // end::get-aggregate-root[]
 
     @PostMapping("/persons")
     Person newPerson(@RequestBody Person newPerson) {
+        log.info("Вызов метода newPerson()");
         return repository.save(newPerson);
     }
 
@@ -30,14 +34,14 @@ public class PersonController {
 
     @GetMapping("/persons/{id}")
     Person one(@PathVariable Long id) {
-
+        log.info("Вызов метода findById(id)");
         return repository.findById(id)
                 .orElseThrow(() -> new PersonNotFoundException(id));
     }
 
     @PutMapping("/persons/{id}")
     Person replacePerson(@RequestBody Person newPerson, @PathVariable Long id) {
-
+        log.info("Вызов метода replacePerson");
         return repository.findById(id)
                 .map(person -> {
                     person.setName(newPerson.getName());
@@ -52,6 +56,7 @@ public class PersonController {
 
     @DeleteMapping("/persons/{id}")
     void deletePerson(@PathVariable Long id) {
+        log.info("Вызов метода deleteById");
         repository.deleteById(id);
     }
 }
