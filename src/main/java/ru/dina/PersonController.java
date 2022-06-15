@@ -14,23 +14,17 @@ public class PersonController {
         this.repository = repository;
     }
 
-
-    // Aggregate root
-    // tag::get-aggregate-root[]
     @GetMapping("/persons")
     List<Person> all() {
         log.info("Вызов метода findAll()");
         return repository.findAll();
     }
-    // end::get-aggregate-root[]
 
     @PostMapping("/persons")
     Person newPerson(@RequestBody Person newPerson) {
         log.info("Вызов метода newPerson()");
         return repository.save(newPerson);
     }
-
-    // Single item
 
     @GetMapping("/persons/{id}")
     Person one(@PathVariable Long id) {

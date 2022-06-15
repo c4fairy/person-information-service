@@ -11,7 +11,6 @@ import java.util.Objects;
 //object ready for storage in a JPA-based data store
 @Entity
 public class Person {
-    //the primary key and automatically populated by the JPA provider
     private @Id
     @GeneratedValue Long id;
     private String name;
@@ -20,8 +19,6 @@ public class Person {
     public Person() {
     }
 
-    //a custom constructor is created when we need to create a new instance,
-    //but don’t yet have an id.
     public Person(String name, String adress) {
 
         this.name = name;
